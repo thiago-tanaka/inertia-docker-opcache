@@ -7,20 +7,19 @@ import InputLabel from "@/Components/InputLabel.vue";
 import TextInput from "@/Components/TextInput.vue";
 
 defineProps({
-    users: {
+    products: {
         type: Array,
     },
 });
 
 const form = useForm({
     name: '',
-    email: '',
 });
 
 const deleteForm = useForm({});
 
-const deleteUser = (userId) => {
-    deleteForm.delete(route('users.destroy', userId));
+const deleteProduct = (productId) => {
+    deleteForm.delete(route('products.destroy', productId));
 };
 
 </script>
@@ -36,11 +35,11 @@ const deleteUser = (userId) => {
         <div class="py-6">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg p-6 pt-0">
-                    <form @submit.prevent="form.post(route('users.store'), {preserveState: false})"
+                    <form @submit.prevent="form.post(route('products.store'), {preserveState: false})"
                           class="border-b border-gray-600 mb-6 mt-6 space-y-6 pb-6 md:w-1/3 ">
-                        <p class="text-gray-500 dark:text-gray-400">Add new user</p>
+                        <p class="text-gray-500 dark:text-gray-400">Add new product</p>
                         <div>
-                            <InputLabel for="name" value="Name"/>
+                            <InputLabel for="name" value="Product Name"/>
 
                             <TextInput
                                 id="name"
@@ -52,20 +51,6 @@ const deleteUser = (userId) => {
                             />
 
                             <InputError class="mt-2" :message="form.errors.name"/>
-                        </div>
-
-                        <div>
-                            <InputLabel for="email" value="Email"/>
-
-                            <TextInput
-                                id="email"
-                                type="email"
-                                class="mt-1 block w-full"
-                                v-model="form.email"
-                                required
-                            />
-
-                            <InputError class="mt-2" :message="form.errors.email"/>
                         </div>
 
                         <div class="flex items-center gap-4">
@@ -88,17 +73,15 @@ const deleteUser = (userId) => {
                             <thead
                                 class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
-                                <th scope="col" class="py-3 px-6">Username</th>
-                                <th scope="col" class="py-3 px-6">Email</th>
+                                <th scope="col" class="py-3 px-6">Product Name</th>
                                 <th>Action</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr v-for="user in users" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                <td class="py-4 px-6">{{ user.name }}</td>
-                                <td class="py-4 px-6">{{ user.email }}</td>
+                            <tr v-for="product in products" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                <td class="py-4 px-6">{{ product.name }}</td>
                                 <td>
-                                    <button @click="deleteUser(user.id)"
+                                    <button @click="deleteProduct(product.id)"
                                             class="px-4 py-2 bg-red-500 text-white text-xs font-semibold rounded hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-300">
                                         Delete
                                     </button>

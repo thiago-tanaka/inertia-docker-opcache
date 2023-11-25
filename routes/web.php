@@ -1,8 +1,8 @@
 <?php
 
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\UserController;
-use App\Models\User;
+use App\Models\Product;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -29,7 +29,7 @@ Route::get('/', function () {
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard', [
-        'users' => User::whereNot('id', auth()->id())->get(['id', 'name', 'email']),
+        'products' => Product::get(['id', 'name'])
     ]);
 })->middleware(['auth', 'verified'])->name('dashboard');
 
@@ -40,8 +40,8 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
-    Route::post('/users', [UserController::class, 'store'])->name('users.store');
-    Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
+    Route::post('/products', [ProductController::class, 'store'])->name('products.store');
+    Route::delete('/products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
 });
 
 require __DIR__.'/auth.php';
