@@ -14,9 +14,12 @@ services:
       - ./:/var/www
     ports:
       - "8080:8080"
+      - '${VITE_PORT:-5173}:${VITE_PORT:-5173}'
     depends_on:
       database:
         condition: service_healthy
+    networks:
+        - inertia
   database:
     container_name: database
     image: mysql:8.0
@@ -33,5 +36,10 @@ services:
         test: [ "CMD", "mysqladmin" ,"ping", "-p", "-p${DB_PASSWORD}" ]
         retries: 3
         timeout: 10s
+    networks:
+        - inertia
 volumes:
   db-data: ~
+networks:
+    inertia:
+        driver: bridge
