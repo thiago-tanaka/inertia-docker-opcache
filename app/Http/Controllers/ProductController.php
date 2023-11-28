@@ -9,7 +9,7 @@ class ProductController extends Controller
 {
     public function store(ProductRequest $request)
     {
-        Product::create($request->validated());
+        Product::create($request->validated() + ['user_id' => auth()->id()]);
 
         return redirect()->route('dashboard');
     }

@@ -29,7 +29,7 @@ Route::get('/', function () {
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard', [
-        'products' => Product::get(['id', 'name'])
+        'products' => auth()->user()->products()->get(['id', 'name'])
     ]);
 })->middleware(['auth', 'verified'])->name('dashboard');
 

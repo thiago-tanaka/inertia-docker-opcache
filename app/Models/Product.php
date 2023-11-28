@@ -8,5 +8,6 @@ class Product extends Model
 {
     protected $fillable = [
         'name',
+        'user_id',
     ];
 }
