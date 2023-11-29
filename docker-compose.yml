@@ -1,22 +1,22 @@
 version: "3.8"
 services:
-  app:
-    container_name: app
-    build:
-      context: .
-      target: php
-      args:
-        - APP_ENV=${APP_ENV}
-    environment:
-      - APP_ENV=${APP_ENV}
-    working_dir: /var/www
-    volumes:
-      - ./:/var/www
-    ports:
-      - "8080:8080"
-      - '${VITE_PORT:-5173}:${VITE_PORT:-5173}'
-    networks:
-        - inertia
+    app:
+        container_name: app
+        build:
+            context: .
+            target: php
+            args:
+                - APP_ENV=${APP_ENV}
+        environment:
+            - APP_ENV=${APP_ENV}
+        working_dir: /var/www
+        volumes:
+            - ./:/var/www
+        ports:
+            - "8080:8080"
+            - '${VITE_PORT:-5173}:${VITE_PORT:-5173}'
+        networks:
+            - mysql-container_mysql_network
 networks:
     mysql-container_mysql_network:
         external: true
